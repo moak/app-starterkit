@@ -1,3 +1,3 @@
-express-starterkit/node_modules
-react-starterkit/node_modules
-react-router-starterkit/node_modules
+express-starterkit/node_modules/*
+react-starterkit/node_modules/*
+react-router-starterkit/node_modules/*
