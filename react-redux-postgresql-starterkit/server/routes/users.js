@@ -1,5 +1,5 @@
 import express from 'express';
-import validateInput from '../shared/validations/register'
+import commonValidations from '../shared/validations/register'
 
 import bcrypt from 'bcrypt';
 
@@ -7,10 +7,17 @@ import User from '../models/user';
 
 let router = express.Router();
 
-router.post('/', (req,res) => {
-  setTimeout( () =>  {
-    const { errors, isValid } = validateInput(req.body);
 
+function validateInput(data, otherValidations) {
+  let { errors } = otherValidations(data);
+
+  User.where({email: data.email}).fetch().then(user => {
+    if (user) { errors.email = 'This email already exists'; }
+  })
+}
+router.post('/', (req,res) => {
+
+  validateInput(req.body, commonValidations).then(({errors, isValid}) => {
     if(isValid) {
       const { email, password, timezone } = req.body;
       const password_digest = bcrypt.hashSync(password, 10);
@@ -22,7 +29,8 @@ router.post('/', (req,res) => {
     else {
       res.status(400).json(errors);
     }
-  }, 1500);
+  });
+
 });
 
 export default router;
