@@ -1,6 +1,7 @@
 import rootReducer from '../reducers';
 import {createStore} from 'redux';
 
+
 export default (initialState) => {
-  return createStore(rootReducer, initialState);
+  return createStore(rootReducer, initialState,  window.devToolsExtension && window.devToolsExtension());
 };

@@ -1,4 +1,11 @@
 .movie {
+  height: 80px;
+  width: 300px;
   border: 1px solid black;
-  display: inline;
+}
+
+.action {
+  height: 80px;
+  width: 500px;
+  border: 1px solid black;
 }
